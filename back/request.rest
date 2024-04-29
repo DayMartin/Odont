@@ -1,3 +1,5 @@
+################ USUARIOS
+
 ### BUSCAR TODOS OS USUARIOS
 
 GET http://localhost:3048/api/user/all
@@ -44,6 +46,9 @@ Content-Type: application/json
   "id": 6
 }
 
+
+################ SERVICOS
+
 ### BUSCAR TODOS OS SERVICOS
 
 GET http://localhost:3048/api/servicos/all
@@ -72,9 +77,49 @@ Content-Type: application/json
 
 ### DELETAR UM SERVIÇO POR ID
 
-DELETE http://localhost:3048/api/servicos/delete
+DELETE http://localhost:3048/api/os/delete
 Content-Type: application/json
 
 {
   "id": 5
+}
+
+
+################ OS
+
+### BUSCAR TODOS AS OS
+
+GET http://localhost:3048/api/os/all
+
+### CADASTRAR NOVO OS
+
+POST http://localhost:3048/api/os/create
+Content-Type: application/json
+
+{
+  "servico_id": 6,
+  "cliente_id": 7,
+  "funcionario_id": 8,
+  "QTparcelas": 1,
+  "valorServico": 48,
+  "dataServico": "24/08/2024"
+
+}
+
+### BUSCAR UMA OS POR ID
+
+POST http://localhost:3048/api/os/get
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+### DELETAR UMA OS POR ID
+
+DELETE http://localhost:3048/api/os/delete
+Content-Type: application/json
+
+{
+  "id": 4
 }

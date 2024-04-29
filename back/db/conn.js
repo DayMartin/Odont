@@ -100,8 +100,8 @@ async function createOsTable() {
                     servico_id INT,
                     cliente_id INT,
                     funcionario_id INT,
-                    QTparcelas DECIMAL(10),
-                    valorServico DECIMAL(10),
+                    QTparcelas INT,
+                    valorServico INT,
                     dataServico VARCHAR(50),
                     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     FOREIGN KEY (servico_id) REFERENCES servicos(id),
@@ -122,6 +122,7 @@ async function createOsTable() {
 // Chame as funções para criar as tabelas durante a inicialização do banco de dados
 createUsuariosTable();
 createServicosTable();
+createOsTable();
 
 console.log("Conectado ao banco!");
 

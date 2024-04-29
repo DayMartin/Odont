@@ -7,7 +7,7 @@ const usersRouter = require("./users");
 
 router.use("/", usersRouter);
 
-// service routes
+// servico routes
 
 const servicoRouter = require("./servicos");
 
@@ -15,4 +15,10 @@ router.use("/", servicoRouter);
 
 module.exports = router;
 
+// os routes
 
+const osRouter = require("./os");
+
+router.use("/", osRouter);
+
+module.exports = router;
