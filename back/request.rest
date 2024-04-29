@@ -77,7 +77,7 @@ Content-Type: application/json
 
 ### DELETAR UM SERVIÇO POR ID
 
-DELETE http://localhost:3048/api/os/delete
+DELETE http://localhost:3048/api/servicos/delete
 Content-Type: application/json
 
 {
@@ -112,7 +112,7 @@ POST http://localhost:3048/api/os/get
 Content-Type: application/json
 
 {
-  "id": 1
+  "id": 3
 }
 
 ### DELETAR UMA OS POR ID
