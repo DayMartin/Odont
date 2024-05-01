@@ -20,8 +20,8 @@ module.exports.getUsers = async (_, res) => {
 
 // Função para criar um novo usuário
 module.exports.createUser = async (req, res) => {
-    const { tipo, cpfcnpj, nome, telefone, endereco, email, senha } = req.body;
-    const query = "INSERT INTO usuarios (tipo, cpfcnpj, nome, telefone, endereco, email, senha) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    const { tipo, cpfcnpj, nome, telefone, endereco, email, senha, status } = req.body;
+    const query = "INSERT INTO usuarios (tipo, cpfcnpj, nome, telefone, endereco, email, senha, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
     try {
         // Verifica se o email já está cadastrado
@@ -31,7 +31,7 @@ module.exports.createUser = async (req, res) => {
         if (emailRows.length > 0) {
             return res.status(400).json({ error: "Usuário já cadastrado" });
         }
-        await db.query(query, [tipo, cpfcnpj, nome, telefone, endereco, email, senha]);
+        await db.query(query, [tipo, cpfcnpj, nome, telefone, endereco, email, senha, status]);
         return res.status(201).json({ message: `Usuário criado com sucesso` });
     } catch (error) {
         console.error(error);

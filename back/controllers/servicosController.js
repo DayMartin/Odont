@@ -21,11 +21,11 @@ module.exports.getService = async (_, res) => {
 
 // Função para criar um novo Serviço
 module.exports.createServico = async (req, res) => {
-    const { nome, descricao, preco, quantidade } = req.body;
-    const query = "INSERT INTO servicos (nome, descricao, preco, quantidade) VALUES (?, ?, ?, ?)";
+    const { nome, descricao, preco_avulso, preco_convenio, status, quantidade } = req.body;
+    const query = "INSERT INTO servicos (nome, descricao, preco_avulso, preco_convenio, status, quantidade) VALUES (?, ?, ?, ?, ?, ?)";
 
     try {
-        await db.query(query, [nome, descricao, preco, quantidade]);
+        await db.query(query, [nome, descricao, preco_avulso, preco_convenio, status, quantidade]);
         return res.status(201).json({ message: "Serviço criado com sucesso" });
     } catch (error) {
         console.error(error);
