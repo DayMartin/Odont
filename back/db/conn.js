@@ -127,19 +127,19 @@ async function createOsTable() {
     }
 }
 
-async function createFinanceiroTable() {
+async function createParcelasTable() {
     try {
         const connection = await pool.getConnection();
 
-        // Verifique se a tabela 'Financeiro' existe
+        // Verifique se a tabela 'Parcelas' existe
         const [rows, fields] = await connection.execute(
-            `SHOW TABLES LIKE 'financeiro'`
+            `SHOW TABLES LIKE 'parcelas'`
         );
 
-        // Se a tabela 'Financeiro' não existir, crie-a
+        // Se a tabela 'Parcelas' não existir, crie-a
         if (rows.length === 0) {
             await connection.execute(`
-                CREATE TABLE financeiro (
+                CREATE TABLE parcelas (
                     id INT AUTO_INCREMENT PRIMARY KEY,
                     os_id INT,
                     parcela INT,
@@ -150,20 +150,20 @@ async function createFinanceiroTable() {
                     FOREIGN KEY (os_id) REFERENCES os(id)
                 )
             `);
-            console.log("Tabela 'Financeiro' criada com sucesso.");
+            console.log("Tabela 'Parcelas' criada com sucesso.");
         }
 
         // Libere a conexão
         connection.release();
     } catch (error) {
-        console.error("Erro ao criar a tabela 'Financeiro':", error);
+        console.error("Erro ao criar a tabela 'Parcelas':", error);
     }
 }
 
 // Chame as funções para criar as tabelas durante a inicialização do banco de dados
 createUsuariosTable();
 createServicosTable();
-createFinanceiroTable();
+createParcelasTable();
 createOsTable();
 
 console.log("Conectado ao banco!");

@@ -148,3 +148,36 @@ Content-Type: application/json
 {
   "id": 4
 }
+
+### PARCELAS
+
+### BUSCAR TODOS OS USUARIOS
+
+GET http://localhost:3048/api/parcelas/all
+
+### BUSCAR PARCELA POR ID
+
+POST http://localhost:3048/api/parcelas/id
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+### BUSCAR PARCELA POR ID DA OS
+
+POST http://localhost:3048/api/parcelas/idOs
+Content-Type: application/json
+
+{
+  "os_id": 5
+}
+
+### DELETAR PARCELA POR ID
+
+DELETE http://localhost:3048/api/parcelas/delete
+Content-Type: application/json
+
+{
+  "id": 1
+}

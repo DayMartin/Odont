@@ -22,7 +22,7 @@ module.exports.getOss = async (_, res) => {
 module.exports.createOs = async (req, res) => {
     const { servico_id, cliente_id, funcionario_id, convenio_id, QTparcelas, valorServico, valorDesconto, dataServico, horaServico, salaServico, status, parcelas } = req.body;
     const insertOsQuery = "INSERT INTO os (servico_id, cliente_id, funcionario_id, convenio_id, QTparcelas, valorServico, valorDesconto, dataServico, horaServico, salaServico, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    const insertFinanceiroQuery = "INSERT INTO financeiro (os_id, parcela, valorParcela, dataPagamento, status) VALUES (?, ?, ?, ?, ?)";
+    const insertFinanceiroQuery = "INSERT INTO parcelas (os_id, parcela, valorParcela, dataPagamento, status) VALUES (?, ?, ?, ?, ?)";
 
     try {
         // Inserir na tabela 'os'
