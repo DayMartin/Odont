@@ -164,7 +164,7 @@ async function createParcelasTable() {
 createUsuariosTable();
 createServicosTable();
 createParcelasTable();
-createOsTable();
+createOsTable(); 
 
 console.log("Conectado ao banco!");
 

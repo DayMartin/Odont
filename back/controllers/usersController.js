@@ -81,7 +81,6 @@ module.exports.getUserTipo = async (req, res) => {
     }
 };
 
-
 // Função para deletar um Usuario
 module.exports.deleteUser = async (req, res) => {
     const { id } = req.body;

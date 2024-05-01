@@ -43,7 +43,6 @@ module.exports.createOs = async (req, res) => {
     }
 };
 
-
 // Função para buscar um usuário
 module.exports.getOs = async (req, res) => {
     const { id } = req.body;
@@ -64,8 +63,6 @@ module.exports.getOs = async (req, res) => {
         return res.status(500).json({ error: "Erro ao buscar OS" });
     }
 };
-
-
 
 // Função para deletar uma OS
 module.exports.deleteOS = async (req, res) => {

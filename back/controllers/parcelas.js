@@ -18,7 +18,6 @@ module.exports.getParcelas = async (_, res) => {
     }
 };
 
-
 // Função para buscar uma parcela
 module.exports.getParcela = async (req, res) => {
     const { id } = req.body;
@@ -60,9 +59,6 @@ module.exports.getParcelaOs = async (req, res) => {
         return res.status(500).json({ error: "Erro ao buscar Parcela" });
     }
 };
-
-
-
 
 // Função para deletar uma Parcela
 module.exports.deleteParcela = async (req, res) => {
