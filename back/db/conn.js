@@ -39,6 +39,7 @@ async function createUsuariosTable() {
                     endereco VARCHAR(100),
                     email VARCHAR(100),
                     senha VARCHAR(100),
+                    status VARCHAR(50),
                     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
             `);
@@ -67,9 +68,10 @@ async function createServicosTable() {
                 CREATE TABLE servicos (
                     id INT AUTO_INCREMENT PRIMARY KEY,
                     nome VARCHAR(100),
-                    descricao TEXT,
-                    preco DECIMAL(10, 2),
-                    quantidade DECIMAL(10),
+                    descricao VARCHAR(100),
+                    preco_avulso DECIMAL(10, 2),
+                    preco_convenio DECIMAL(10, 2),
+                    status VARCHAR(50),
                     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
             `);
@@ -100,13 +102,19 @@ async function createOsTable() {
                     servico_id INT,
                     cliente_id INT,
                     funcionario_id INT,
+                    convenio_id INT,
                     QTparcelas INT,
-                    valorServico INT,
+                    valorServico DECIMAL(10, 2),
+                    valorDesconto DECIMAL(10, 2),
                     dataServico VARCHAR(50),
+                    horaServico VARCHAR(50),
+                    salaServico VARCHAR(50),
+                    status VARCHAR(50),
                     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     FOREIGN KEY (servico_id) REFERENCES servicos(id),
                     FOREIGN KEY (cliente_id) REFERENCES usuarios(id),
-                    FOREIGN KEY (funcionario_id) REFERENCES usuarios(id)
+                    FOREIGN KEY (funcionario_id) REFERENCES usuarios(id),
+                    FOREIGN KEY (convenio_id) REFERENCES usuarios(id)
                 )
             `);
             console.log("Tabela 'os' criada com sucesso.");
@@ -119,9 +127,43 @@ async function createOsTable() {
     }
 }
 
+async function createFinanceiroTable() {
+    try {
+        const connection = await pool.getConnection();
+
+        // Verifique se a tabela 'Financeiro' existe
+        const [rows, fields] = await connection.execute(
+            `SHOW TABLES LIKE 'financeiro'`
+        );
+
+        // Se a tabela 'Financeiro' não existir, crie-a
+        if (rows.length === 0) {
+            await connection.execute(`
+                CREATE TABLE financeiro (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    os_id INT,
+                    parcela INT,
+                    valorParcela DECIMAL(10, 2),
+                    dataPagamento VARCHAR(50),
+                    status VARCHAR(50),
+                    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (os_id) REFERENCES os(id)
+                )
+            `);
+            console.log("Tabela 'Financeiro' criada com sucesso.");
+        }
+
+        // Libere a conexão
+        connection.release();
+    } catch (error) {
+        console.error("Erro ao criar a tabela 'Financeiro':", error);
+    }
+}
+
 // Chame as funções para criar as tabelas durante a inicialização do banco de dados
 createUsuariosTable();
 createServicosTable();
+createFinanceiroTable();
 createOsTable();
 
 console.log("Conectado ao banco!");

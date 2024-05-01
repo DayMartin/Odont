@@ -20,17 +20,29 @@ module.exports.getOss = async (_, res) => {
 
 // Função para criar uma nova os
 module.exports.createOs = async (req, res) => {
-    const { servico_id, cliente_id, funcionario_id, QTparcelas, valorServico, dataServico } = req.body;
-    const query = "INSERT INTO os (servico_id, cliente_id, funcionario_id, QTparcelas, valorServico, dataServico) VALUES (?, ?, ?, ?, ?, ?)";
+    const { servico_id, cliente_id, funcionario_id, convenio_id, QTparcelas, valorServico, valorDesconto, dataServico, horaServico, salaServico, status, parcelas } = req.body;
+    const insertOsQuery = "INSERT INTO os (servico_id, cliente_id, funcionario_id, convenio_id, QTparcelas, valorServico, valorDesconto, dataServico, horaServico, salaServico, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const insertFinanceiroQuery = "INSERT INTO financeiro (os_id, parcela, valorParcela, dataPagamento, status) VALUES (?, ?, ?, ?, ?)";
 
     try {
-        await db.query(query, [servico_id, cliente_id, funcionario_id, QTparcelas, valorServico, dataServico]);
+        // Inserir na tabela 'os'
+        const [osResult] = await db.query(insertOsQuery, [servico_id, cliente_id, funcionario_id, convenio_id, QTparcelas, valorServico, valorDesconto, dataServico, horaServico, salaServico, status]);
+
+        // Recuperar o ID da OS recém-criada
+        const osId = osResult.insertId;
+
+        // Inserir na tabela 'financeiro' para cada parcela
+        for (const parcela of parcelas) {
+            await db.query(insertFinanceiroQuery, [osId, parcela.parcela, parcela.valorParcela, parcela.dataPagamento, parcela.status]);
+        }
+
         return res.status(201).json({ message: `OS criada com sucesso` });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: "Erro ao criar OS" });
     }
 };
+
 
 // Função para buscar um usuário
 module.exports.getOs = async (req, res) => {
